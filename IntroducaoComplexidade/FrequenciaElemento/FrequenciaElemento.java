@@ -26,4 +26,3 @@ class FrequenciaElemento {
 	}
 } 
 
-// Algoritimo precisa varrer todas as posicoes do array para contar as ocorrencias de k, portanto complexidade O(n)
