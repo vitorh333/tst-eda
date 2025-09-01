@@ -1,10 +1,10 @@
 import java.util.*;
 
-public class InvertePilhaSemFila {
+public class MaxPilha {
 
     public static class Pilha {
-         private int[] pilha;
-         private int topo;
+         public int[] pilha;
+         public int topo;
 
         public Pilha(int capacidade) {
             this.pilha = new int[capacidade];
@@ -70,48 +70,61 @@ public class InvertePilhaSemFila {
             return element;
         }
 
-        public void invertePilha() {
-            Pilha aux = new Pilha(this.pilha.length);
-            
-            while(!isEmpty()) {
-                aux.push(pop());
-            }
+		public String mostraPorElemento() {
+			Pilha aux = new Pilha(size());
+			String saida = "";
+			while(!isEmpty()) {
+				int v = pop();
+				aux.push(v);
+				saida += v + "\n";
+			}
 
-            this.pilha = aux.pilha;
-            this.topo = aux.topo;
-        }
+			while(!aux.isEmpty()) {
+				int v = aux.pop();
+				push(v);
+			}
 
-        public String toString() {
-            Pilha aux = new Pilha(this.pilha.length);
-            String saida = "";
+			return saida;
+		}
 
-            while(!isEmpty()) {
-                int v = pop();
-                aux.push(v);
-                saida += v + "\n";
-            }
+		public int procuraMaior() {
+			Pilha aux = new Pilha(size());
+			int maior = getTopo();
 
-            while(!aux.isEmpty()) {
-                push(aux.pop());
-            }
+			while(!isEmpty()) {
+				int v = pop();
+				aux.push(v);
+				maior = Math.max(v, maior);
+			}
 
-            return saida;
-        }
+
+			while(!aux.isEmpty()) {
+				int v = aux.pop();
+				push(v);
+			}
+
+			return maior;
+		}
     }
 
     public static void main(String[] args) {
         Scanner input = new Scanner(System.in);
-        int n = input.nextInt();
-        input.nextLine();
+		//int n = input.nextInt();
+		//input.nextLine();
+
         String linha = input.nextLine();
         String[] lista = linha.split(" ");
+
+		//int idx = input.nextInt();
         Pilha pilha = new Pilha(lista.length);
 
-        for(int i = 0; i < n; i++) {
+        for(int i = 0; i < lista.length; i++) {
             pilha.push(Integer.parseInt(lista[i]));
-        }
-        pilha.invertePilha();
-        System.out.print(pilha.toString());
-    }
+		}
+
+		System.out.println(pilha.procuraMaior());
+	
+	}
 }
+
 
